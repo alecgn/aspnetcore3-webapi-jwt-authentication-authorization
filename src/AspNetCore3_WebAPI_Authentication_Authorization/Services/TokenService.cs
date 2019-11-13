@@ -32,7 +32,7 @@ namespace AspNetCore3_WebAPI_Authentication_Authorization.Services
                     new Claim(ClaimTypes.Name, user.Username),
                      new Claim(ClaimTypes.Role, user.Role)
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddHours(2),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
