@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AspNetCore3_WebAPI_Authentication_Authorization.Services;
+using AspNetCore3_WebAPI_JWT.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,7 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
-namespace AspNetCore3_WebAPI_Authentication_Authorization
+namespace AspNetCore3_WebAPI_JWT
 {
     public class Startup
     {

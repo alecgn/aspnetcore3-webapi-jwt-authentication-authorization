@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace AspNetCore3_WebAPI_Authentication_Authorization
+namespace AspNetCore3_WebAPI_JWT
 {
     public class Program
     {

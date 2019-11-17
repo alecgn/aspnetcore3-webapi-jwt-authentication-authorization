@@ -1,4 +1,4 @@
-namespace AspNetCore3_WebAPI_Authentication_Authorization.Models
+namespace AspNetCore3_WebAPI_JWT.Models
 {
     public class User
     {

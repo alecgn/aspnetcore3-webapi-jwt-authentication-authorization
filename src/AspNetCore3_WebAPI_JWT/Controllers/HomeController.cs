@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
-using AspNetCore3_WebAPI_Authentication_Authorization.Models;
-using AspNetCore3_WebAPI_Authentication_Authorization.Repositories;
-using AspNetCore3_WebAPI_Authentication_Authorization.Services;
+using AspNetCore3_WebAPI_JWT.Models;
+using AspNetCore3_WebAPI_JWT.Repositories;
+using AspNetCore3_WebAPI_JWT.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
-namespace AspNetCore3_WebAPI_Authentication_Authorization.Controllers
+namespace AspNetCore3_WebAPI_JWT.Controllers
 {
     [Route("v1/account")]
     public class HomeController : ControllerBase

@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/AspNetCore3_WebAPI_Authentication_Authorization.csproj"
+                "${workspaceFolder}/AspNetCore3_WebAPI_JWT.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

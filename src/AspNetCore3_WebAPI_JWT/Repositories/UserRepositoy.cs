@@ -1,8 +1,8 @@
-using AspNetCore3_WebAPI_Authentication_Authorization.Models;
+using AspNetCore3_WebAPI_JWT.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AspNetCore3_WebAPI_Authentication_Authorization.Repositories
+namespace AspNetCore3_WebAPI_JWT.Repositories
 {
     public static class UserRepository
     {
