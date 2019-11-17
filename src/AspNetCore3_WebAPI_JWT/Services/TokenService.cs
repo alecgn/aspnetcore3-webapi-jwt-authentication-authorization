@@ -11,20 +11,22 @@ namespace AspNetCore3_WebAPI_JWT.Services
 {
     public class TokenService 
     {
-        private IConfiguration _config;
+        private IConfiguration Configuration;
 
-        public TokenService(IConfiguration config)
+        public TokenService(IConfiguration configuration)
         {
-            _config = config;
+            Configuration = configuration;
         }
         
         public string GenerateToken(User user)
         {
-            var keyStr = _config.GetValue<string>("AppSettings:PrivateKey");
-            var tokenExpirationInMinutes = _config.GetValue<int>("AppSettings:TokenExpirationInMinutes");
+            var keyStr = Configuration.GetValue<string>("AppSettings:PrivateKey");
 
             if (string.IsNullOrWhiteSpace(keyStr))
                 return null;
+
+            var tokenExpirationInMinutes = Configuration.GetValue<int>("AppSettings:TokenExpirationInMinutes");
+            tokenExpirationInMinutes = (tokenExpirationInMinutes <= 0 ? 15 : tokenExpirationInMinutes);
 
             var keyBytes = Encoding.UTF8.GetBytes(keyStr);
             var tokenHandler = new JwtSecurityTokenHandler();
