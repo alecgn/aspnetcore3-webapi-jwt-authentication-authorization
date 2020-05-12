@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="CryptHash.Net" Version="3.6.0" />
     <PackageReference Include="Microsoft.ASpNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.ASpNetCore.Authentication.JwtBearer" Version="3.0.0" />
   </ItemGroup>
