@@ -63,7 +63,7 @@ namespace AspNetCore3_WebAPI_JWT.Services
                      new Claim(ClaimTypes.Role, user.Role)
                 }),
                     Expires = DateTime.UtcNow.AddMinutes(tokenExpirationInMinutes),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha256Signature)
+                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha512Signature)
                 };
                 var token = tokenHandler.CreateToken(tokenDescriptor);
 
