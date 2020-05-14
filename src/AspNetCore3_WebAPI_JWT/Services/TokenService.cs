@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using AspNetCore3_WebAPI_JWT.Models;
+using AspNetCore3_WebAPI_JWT.CustomExceptions;
 using Microsoft.Extensions.Configuration;
 using AspNetCore3_WebAPI_JWT.Enums;
 using CryptHash.Net.Encoding;
@@ -70,7 +71,7 @@ namespace AspNetCore3_WebAPI_JWT.Services
                 return tokenHandler.WriteToken(token);
             }
             else
-                return null;
+                throw new InvalidKeySizeException($"Invalid key size: ({(keyBytes.Length * 8)}).");
         }
     }
 }
