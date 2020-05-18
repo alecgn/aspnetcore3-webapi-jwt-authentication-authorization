@@ -1,5 +1,6 @@
 
 using System;
+using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -25,53 +26,28 @@ namespace AspNetCore3_WebAPI_JWT.Services
         
         public string GenerateToken(User user)
         {
-            byte[] keyBytes = null;
-            var keyStr = Configuration.GetValue<string>("AppSettings:PrivateKey");
+            var securityKeyStr = _configuration.GetValue<string>("AppSettings:SecurityKey");
 
-            if (string.IsNullOrWhiteSpace(keyStr))
-                //return null;
-                keyBytes = CommonMethods.Generate256BitKey();
+            if (string.IsNullOrWhiteSpace(securityKeyStr))
+                throw new ConfigurationErrorsException("SecurityKey cannot be null, empty or whitespace, check configuration file.");
 
-            if (keyBytes == null)
+            var securityKeyBytes = Encoding.UTF8.GetBytes(securityKeyStr);
+            var tokenExpirationInMinutes = _configuration.GetValue<int>("AppSettings:TokenExpirationInMinutes");
+            tokenExpirationInMinutes = (tokenExpirationInMinutes <= 0 ? 15 : tokenExpirationInMinutes);
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var tokenDescriptor = new SecurityTokenDescriptor()
             {
-                var keyEncodingType = Configuration.GetValue<EncodingType>("AppSettings:PrivateKeyEncodingType");
-
-                switch (keyEncodingType)
-                {
-                    case EncodingType.Hexadecimal:
-                        keyBytes = Hexadecimal.ToByteArray(keyStr);
-                        break;
-                    case EncodingType.Base64:
-                        keyBytes = Base64.ToByteArray(keyStr);
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            var keySizes = new KeySizes(128, 256, 64); // allowed key sizes for modern symmetric algorithms
-
-            if ((keyBytes.Length * 8) >= keySizes.MinSize && (keyBytes.Length * 8) <= keySizes.MaxSize && ((keyBytes.Length * 8) % keySizes.SkipSize == 0))
-            {
-                var tokenExpirationInMinutes = Configuration.GetValue<int>("AppSettings:TokenExpirationInMinutes");
-                tokenExpirationInMinutes = (tokenExpirationInMinutes <= 0 ? 15 : tokenExpirationInMinutes);
-
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var tokenDescriptor = new SecurityTokenDescriptor()
-                {
-                    Subject = new ClaimsIdentity(new Claim[]{
+                Subject = new ClaimsIdentity(new Claim[]{
                     new Claim(ClaimTypes.Name, user.Username),
                      new Claim(ClaimTypes.Role, user.Role)
                 }),
-                    Expires = DateTime.UtcNow.AddMinutes(tokenExpirationInMinutes),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(keyBytes), SecurityAlgorithms.HmacSha512Signature)
-                };
-                var token = tokenHandler.CreateToken(tokenDescriptor);
+                Expires = DateTime.UtcNow.AddMinutes(tokenExpirationInMinutes),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(securityKeyBytes), SecurityAlgorithms.HmacSha512Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
 
-                return tokenHandler.WriteToken(token);
-            }
-            else
-                throw new InvalidKeySizeException($"Invalid key size: ({(keyBytes.Length * 8)}).");
+            return tokenHandler.WriteToken(token);
         }
     }
 }
