@@ -35,10 +35,17 @@ namespace AspNetCore3_WebAPI_JWT.Repositories
 
         public User Login(string username, string password)
         {
-            return Database.QueryFirstOrDefault<User>(_rdbmsProvider, _connectionString,
-                "select * from Users where Username = @Username and Password = @Password;",
-                new { Username = username, Password = password }
+            var user = Database.QueryFirstOrDefault<User>(_rdbmsProvider, _connectionString,
+                "select * from Users where Username = @Username;", new { Username = username }
             );
+
+            if (user != null)
+            {
+                if (!new CryptHash.Net.Hash.BCrypt().VerifyHash(password, user.Password).Success)
+                    user = null;
+            }
+
+            return user;
         }
 
 
