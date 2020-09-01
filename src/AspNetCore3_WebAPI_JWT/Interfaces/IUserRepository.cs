@@ -1,4 +1,4 @@
-﻿using AspNetCore3_WebAPI_JWT.Models;
+﻿using AspNetCore3_WebAPI_JWT.Entities;
 
 namespace AspNetCore3_WebAPI_JWT.Interfaces
 {

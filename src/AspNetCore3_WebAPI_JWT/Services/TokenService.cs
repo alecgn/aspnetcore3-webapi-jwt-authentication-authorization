@@ -1,5 +1,5 @@
 
-using AspNetCore3_WebAPI_JWT.Models;
+using AspNetCore3_WebAPI_JWT.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;

@@ -1,12 +1,13 @@
 using AspNetCore3_WebAPI_JWT.DTOs;
 using AspNetCore3_WebAPI_JWT.Interfaces;
-using AspNetCore3_WebAPI_JWT.Models;
+using AspNetCore3_WebAPI_JWT.Entities;
 using AspNetCore3_WebAPI_JWT.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using AspNetCore3_WebAPI_JWT.Models;
 
 namespace AspNetCore3_WebAPI_JWT.Controllers
 {
@@ -47,7 +48,7 @@ namespace AspNetCore3_WebAPI_JWT.Controllers
         [HttpPost]
         [Route("login")]
         [AllowAnonymous]
-        public async Task<ActionResult<dynamic>> Authenticate([FromBody] User model)
+        public async Task<ActionResult<dynamic>> Authenticate([FromBody] AuthenticationRequest model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
